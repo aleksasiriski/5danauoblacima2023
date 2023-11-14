@@ -1,0 +1,25 @@
+{
+  "name": "5danauoblacima2023",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0",
+    "vite-plugin-node": "^3.1.0"
+  },
+  "dependencies": {
+    "@fastify/redis": "^6.1.1",
+    "fastify": "^4.24.3"
+  }
+}
