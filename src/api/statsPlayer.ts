@@ -7,7 +7,7 @@ async function routes(fastify: FastifyInstance, options: any) {
     const player: string = request.params.playerFullName;
     const { redis } = fastify;
 
-    const playersJSON = await redis.get(player, (err, val) => {
+    const playerJSON = await redis.get(player, (err, val) => {
       if (err) {
         console.error(`getting player ${player} from redis failed: ${err}`);
         return { message: err };
@@ -16,8 +16,8 @@ async function routes(fastify: FastifyInstance, options: any) {
       }
     });
 
-    if (playersJSON !== null) {
-      const player: Player = JSON.parse(String(playersJSON));
+    if (playerJSON !== null) {
+      const player: Player = JSON.parse(String(playerJSON));
 
       const {
         FTM,
@@ -77,7 +77,7 @@ async function routes(fastify: FastifyInstance, options: any) {
         },
       };
     } else {
-      return { message: playersJSON };
+      return { message: playerJSON };
     }
   });
 }

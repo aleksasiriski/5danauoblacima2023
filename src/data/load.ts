@@ -2,7 +2,6 @@ import { readFileSync } from "fs";
 import { parse, ParseResult } from "papaparse";
 
 import { ParsedPlayer, Player } from "./types.js";
-
 import { calculateBasics } from "./calc/basics.js";
 import { calculateDerivatives } from "./calc/derivatives.js";
 
