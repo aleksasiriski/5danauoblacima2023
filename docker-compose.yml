@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  nodejs:
+    image: 5danauoblacima2023
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    depends_on:
+      - redis
+    environment:
+      - VITE_PORT=3000
+      - VITE_REDIS_URL=redis://redis:6379
+    ports:
+      - 3000:3000
+  redis:
+    image: docker.io/library/redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-vol-1:/data:Z
+volumes:
+  redis-vol-1:

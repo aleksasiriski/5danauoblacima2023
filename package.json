@@ -5,12 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node index.js",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "keywords": [],
-  "author": "",
+  "author": "Aleksa Siriški",
   "license": "AGPL-3.0",
   "devDependencies": {
     "@types/node": "^20.9.0",
@@ -20,6 +21,8 @@
   },
   "dependencies": {
     "@fastify/redis": "^6.1.1",
-    "fastify": "^4.24.3"
+    "fast-json-stringify": "^5.9.1",
+    "fastify": "^4.24.3",
+    "papaparse": "^5.4.1"
   }
 }

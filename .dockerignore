@@ -1,6 +1,6 @@
-Dockerfile
+docker/
+node_modules/
 .dockerignore
-node_modules
 .git
 .github
 .devbox

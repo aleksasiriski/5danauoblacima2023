@@ -21,7 +21,7 @@ COPY . ./
 RUN npm run build
 
 # Remove development dependencies
-RUN npm prune --omit=dev
+RUN npm prune --include=prod
 
 
 # Final stage for app image
@@ -29,6 +29,7 @@ FROM base
 
 # Copy built application
 COPY --from=build /app /app
+RUN mv dist/* ./
 
 # Start the server by default, this can be overwritten at runtime
 CMD [ "npm", "run", "start" ]
