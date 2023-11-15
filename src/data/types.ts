@@ -33,3 +33,21 @@ type Player = {
 };
 
 export type { Position, BasicStats, DerivativeStats, Player };
+
+type ParsedPlayer = {
+  PLAYER: string;
+  POSITION: Position;
+  FTM: number;
+  FTA: number;
+  "2PM": number;
+  "2PA": number;
+  "3PM": number;
+  "3PA": number;
+  REB: number;
+  BLK: number;
+  AST: number;
+  STL: number;
+  TOV: number;
+};
+
+export type { ParsedPlayer };

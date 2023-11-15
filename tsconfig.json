@@ -6,7 +6,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "types": ["node", "vite/client"],
-    "strict": false
+    "strict": true
   },
   "include": ["vite.config.*", "vitest.config.*", "src/**/*"]
 }

@@ -1,30 +1,22 @@
-import fs from "fs";
-import Papa from "papaparse";
+import { readFileSync } from "fs";
+import { parse, ParseResult } from "papaparse";
 
-import { ParsedCSV } from "./parsedTypes.js";
-import { Player } from "./types.js";
+import { ParsedPlayer, Player } from "./types.js";
 
 import { calculateBasics } from "./calc/basics.js";
 import { calculateDerivatives } from "./calc/derivatives.js";
 
-const csvPath: string = "./data/input.csv";
-const papaPromise = (importFile: string) =>
-  new Promise<ParsedCSV>((resolve, reject) => {
-    const file = fs.createReadStream(importFile);
-    Papa.parse(file, {
-      header: true,
-      complete: function (results) {
-        resolve(results);
-      },
-      error: function (error) {
-        reject(error);
-      },
-    });
+async function loadCsv(inputFile: string) {
+  const file = readFileSync(inputFile, "utf8");
+  const parsedCsv: ParseResult<ParsedPlayer> = parse(file, {
+    header: true,
+    complete: (result) => console.dir(result.data),
   });
+  return parsedCsv.data;
+}
 
-async function loadAndParse() {
-  const parsedCsv = await papaPromise(csvPath);
-  const parsedPlayers = parsedCsv.data;
+async function loadAndParse(inputFile: string = "./data/input.csv") {
+  const parsedPlayers = await loadCsv(inputFile);
   let players: Player[] = [];
 
   for (const p of parsedPlayers) {
