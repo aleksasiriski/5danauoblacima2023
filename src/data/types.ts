@@ -28,6 +28,7 @@ type DerivativeStats = {
 type Player = {
   NAME: string;
   POSITION: Position;
+  GAMES_PLAYED: number;
   BASIC_STATS: BasicStats;
   DERIVATIVE_STATS: DerivativeStats;
 };

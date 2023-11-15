@@ -1,6 +1,6 @@
-import Fastify from "fastify";
+import { FastifyInstance } from "fastify";
 
-async function routes(fastify: Fastify.FastifyInstance, options: any) {
+async function routes(fastify: FastifyInstance, options: any) {
   fastify.get("/", async (request: any, reply: any) => {
     return { status: "ready" };
   });

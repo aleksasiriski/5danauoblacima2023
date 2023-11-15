@@ -22,6 +22,7 @@ async function createNewPlayer(p: ParsedPlayer) {
   const newPlayer: Player = {
     NAME: p.PLAYER,
     POSITION: p.POSITION,
+    GAMES_PLAYED: -1, //todo: impl
     BASIC_STATS: basicStats,
     DERIVATIVE_STATS: await derivativeStats,
   };
