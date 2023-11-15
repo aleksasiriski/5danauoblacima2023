@@ -6,7 +6,13 @@ async function routes(fastify: FastifyInstance, options: any) {
   });
   fastify.get("/redis", async (request: any, reply: any) => {
     const { redis } = fastify;
-    return { status: redis.status };
+
+    if (redis.status == "ready") {
+      return { status: redis.status };
+    } else {
+      reply.statusCode = 503;
+      return { status: redis.status };
+    }
   });
 }
 
