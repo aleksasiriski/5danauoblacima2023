@@ -34,3 +34,11 @@
 
 - To run the audomated tests you must do `Local` setup after which you can start the tests with `npm run test`
 - Alternatively you can test the API manually by going to `http://localhost:3000/stats/player/Sifiso%20Abdalla`
+
+## Technologies
+
+- NodeJS - [JavaScript runtime for servers](https://nodejs.org)
+- NPM - [Node Package Manager](https://www.npmjs.com/), used to install required packages
+- Fastify - [Fast and low overhead web framework](https://fastify.dev/) for NodeJS
+- Redis - [Fast in memory data store](https://redis.io/)
+- Docker/Podman - [Containerized packaging](https://docs.docker.com/get-started/overview/)
