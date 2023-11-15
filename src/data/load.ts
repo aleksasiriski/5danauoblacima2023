@@ -2,28 +2,24 @@ import { readFileSync } from "fs";
 import { parse, ParseResult } from "papaparse";
 
 import { ParsedPlayer, Player } from "./types.js";
-import { calculateBasics } from "./calc/basics.js";
-import { calculateDerivatives } from "./calc/derivatives.js";
+import { copyBasics } from "./calc/basics.js";
 
 function loadCsv(inputFile: string) {
   const file = readFileSync(inputFile, "utf8");
   const parsedCsv: ParseResult<ParsedPlayer> = parse(file, {
     header: true,
-    complete: (result) => console.dir(result.data),
   });
   return parsedCsv.data;
 }
 
 async function createNewPlayer(p: ParsedPlayer) {
-  const basicStats = calculateBasics(p);
-  const derivativeStats = calculateDerivatives(basicStats);
+  const basicStats = copyBasics(p);
 
   const newPlayer: Player = {
     NAME: p.PLAYER,
     POSITION: p.POSITION,
-    GAMES_PLAYED: -1, //todo: impl
-    BASIC_STATS: basicStats,
-    DERIVATIVE_STATS: await derivativeStats,
+    GAMES_PLAYED: 1,
+    BASIC_STATS_SUM: basicStats,
   };
 
   return newPlayer;

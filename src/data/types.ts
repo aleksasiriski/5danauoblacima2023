@@ -29,8 +29,9 @@ type Player = {
   NAME: string;
   POSITION: Position;
   GAMES_PLAYED: number;
-  BASIC_STATS: BasicStats;
-  DERIVATIVE_STATS: DerivativeStats;
+  BASIC_STATS_SUM: BasicStats;
+  BASIC_STATS?: BasicStats;
+  DERIVATIVE_STATS?: DerivativeStats;
 };
 
 export type { Position, BasicStats, DerivativeStats, Player };
