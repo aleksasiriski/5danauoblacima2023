@@ -22,7 +22,8 @@ async function routes(fastify: FastifyInstance, options: any) {
       const response = await printPlayer(redis, player);
       return response;
     } else {
-      return { response: playerJSON };
+      reply.statusCode = 404;
+      return { explanation: "Player not found" };
     }
   });
 }

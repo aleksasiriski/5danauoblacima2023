@@ -1,6 +1,7 @@
 {
   "packages": [
-    "nodejs@latest"
+    "nodejs@latest",
+    "redli@latest"
   ],
   "shell": {
     "init_hook": [
