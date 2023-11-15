@@ -14,10 +14,6 @@ fastify.register(fastifyRedis, {
 import { healthzRoutes } from "./healthz.js";
 fastify.register(healthzRoutes, { prefix: "/healthz" });
 
-// Cache data into redis
-import { loadDataIntoRedis } from "./data/cache.js";
-loadDataIntoRedis(fastify);
-
 // API endpoint
 import { statsPlayerRoutes } from "./api/statsPlayer.js";
 fastify.register(statsPlayerRoutes, { prefix: "/stats/player" });

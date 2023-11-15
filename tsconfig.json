@@ -5,7 +5,8 @@
     "target": "ES2020",
     "sourceMap": true,
     "outDir": "dist",
-    "types": ["node", "vite/client"]
+    "types": ["node", "vite/client"],
+    "strict": false
   },
   "include": ["vite.config.*", "vitest.config.*", "src/**/*"]
 }
