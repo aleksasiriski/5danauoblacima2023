@@ -8,8 +8,8 @@ services:
     depends_on:
       - redis
     environment:
-      - VITE_PORT=3000
-      - VITE_REDIS_URL=redis://redis:6379
+      - PORT=3000
+      - REDIS_URL=redis://redis:6379
     ports:
       - 3000:3000
   redis:

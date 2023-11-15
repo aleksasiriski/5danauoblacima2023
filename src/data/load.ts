@@ -1,12 +1,12 @@
 import { readFileSync } from "fs";
-import { parse, ParseResult } from "papaparse";
+import papa from "papaparse"; // sadly papa must use default import
 
 import { ParsedPlayer, Player } from "./types.js";
 import { copyBasics } from "./calc/basics.js";
 
 function loadCsv(inputFile: string) {
   const file = readFileSync(inputFile, "utf8");
-  const parsedCsv: ParseResult<ParsedPlayer> = parse(file, {
+  const parsedCsv: papa.ParseResult<ParsedPlayer> = papa.parse(file, {
     header: true,
   });
   return parsedCsv.data;
