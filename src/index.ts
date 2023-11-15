@@ -1,6 +1,11 @@
 // Load data from CSV into redis
 const redisUrl = import.meta.env.VITE_REDIS_URL || "redis://localhost:6379";
 import { loadDataIntoRedis } from "./data/cache.js";
+
+/* this could be run without await,
+   which would load the data in the background
+   and would allow the API to start accepting
+   connections earlier */
 await loadDataIntoRedis(redisUrl);
 
 // ESM
@@ -16,7 +21,7 @@ app.register(fastifyRedis, {
 });
 
 // Healthz endpoint
-import { healthzRoutes } from "./healthz.js";
+import { healthzRoutes } from "./api/healthz.js";
 app.register(healthzRoutes, { prefix: "/healthz" });
 
 // API endpoint

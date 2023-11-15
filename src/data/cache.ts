@@ -1,7 +1,8 @@
 import { Redis } from "ioredis";
-import { playersArray } from "./load.js";
+import { loadAndParseCSV } from "./load.js";
 
 export async function loadDataIntoRedis(redisUrl: string) {
+  const playersArray = await loadAndParseCSV();
   const redis = new Redis(redisUrl);
 
   for (const p of playersArray) {
