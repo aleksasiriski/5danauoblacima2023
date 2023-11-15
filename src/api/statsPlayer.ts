@@ -5,12 +5,12 @@ import { printPlayer } from "./print.js";
 
 async function routes(fastify: FastifyInstance, options: any) {
   fastify.get("/:playerFullName", async (request: any, reply: any) => {
-    const player: string = request.params.playerFullName;
+    const playerName: string = request.params.playerFullName;
     const { redis } = fastify;
 
-    const playerJSON = await redis.get(player, (err, val) => {
+    const playerJSON = await redis.get(playerName, (err, val) => {
       if (err) {
-        console.error(`getting player ${player} from redis failed: ${err}`);
+        console.error(`getting player ${playerName} from redis failed: ${err}`);
         return { message: err };
       } else {
         return val;
