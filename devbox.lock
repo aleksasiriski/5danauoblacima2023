@@ -1,0 +1,45 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "nodejs@latest": {
+      "last_modified": "2023-10-25T20:49:13Z",
+      "resolved": "github:NixOS/nixpkgs/75a52265bda7fd25e06e3a67dee3f0354e73243c#nodejs_21",
+      "source": "devbox-search",
+      "version": "21.1.0",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/b8yb6gs0dhi0zlxcg5dkp0d2xrn80nhh-nodejs-21.1.0"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/c20ngwkh3xzpzvmxkffccaxygyiqw3n2-nodejs-21.1.0"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/6wyanl2ba86pc2jb6nvg212xpq7j7kij-nodejs-21.1.0"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/wl7yqxb1mhghpp6b8icykcm5wysfqarz-nodejs-21.1.0"
+        }
+      }
+    },
+    "redli@latest": {
+      "last_modified": "2023-10-25T20:49:13Z",
+      "resolved": "github:NixOS/nixpkgs/75a52265bda7fd25e06e3a67dee3f0354e73243c#redli",
+      "source": "devbox-search",
+      "version": "0.9.0",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/796v0l4mzpidkx2rmybh095lj1n0yjxr-redli-0.9.0"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/wq4ab736dcly0j44wz80gfy5ccl8ik8h-redli-0.9.0"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/swf4na8xqm5av2pfckci8qgd3bjxkzhv-redli-0.9.0"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/dq5gmmbrigszrlb3f4d369x21355dqcd-redli-0.9.0"
+        }
+      }
+    }
+  }
+}
