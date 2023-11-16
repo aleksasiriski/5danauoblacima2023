@@ -1,37 +1,22 @@
 import { Redis } from "ioredis";
 
-import { Player } from "../data/types.js";
+import { BasicStats, DerivativeStats, Player } from "../data/types.js";
 import { updatePlayer } from "../data/cache.js";
 
 import { calculateBasics } from "../data/calc/basics.js";
 import { calculateDerivatives } from "../data/calc/derivatives.js";
 import { round } from "../data/calc/round.js";
 
-export async function printPlayer(redis: Redis, player: Player) {
-  let shouldSetNewPlayer = false;
-
-  if (player.BASIC_STATS === undefined) {
-    player.BASIC_STATS = calculateBasics(
-      player.GAMES_PLAYED,
-      player.BASIC_STATS_SUM
-    );
-    shouldSetNewPlayer = true;
-  }
-
-  if (player.DERIVATIVE_STATS === undefined) {
-    player.DERIVATIVE_STATS = await calculateDerivatives(player.BASIC_STATS);
-    shouldSetNewPlayer = true;
-  }
-
-  if (shouldSetNewPlayer) {
-    await updatePlayer(redis, player);
-  }
-
+export function printPlayer(
+  player: Player,
+  basicStats: BasicStats,
+  derivativeStats: DerivativeStats
+) {
   const { FTM, FTA, TwoPM, TwoPA, ThreePM, ThreePA, REB, BLK, AST, STL, TOV } =
-    player.BASIC_STATS;
+    basicStats;
 
   const { FTPerc, TwoPPerc, ThreePPerc, PTS, VAL, eFGPerc, TSPerc, hASTPerc } =
-    player.DERIVATIVE_STATS;
+    derivativeStats;
 
   return {
     playerName: player.NAME,
@@ -66,4 +51,30 @@ export async function printPlayer(redis: Redis, player: Player) {
       hollingerAssistRatio: round(hASTPerc),
     },
   };
+}
+
+export async function calculateAndPrintPlayer(redis: Redis, player: Player) {
+  let shouldSetNewPlayer = false;
+
+  if (player.BASIC_STATS === undefined) {
+    player.BASIC_STATS = calculateBasics(
+      player.GAMES_PLAYED,
+      player.BASIC_STATS_SUM
+    );
+    shouldSetNewPlayer = true;
+  }
+
+  if (player.DERIVATIVE_STATS === undefined) {
+    player.DERIVATIVE_STATS = await calculateDerivatives(player.BASIC_STATS);
+    shouldSetNewPlayer = true;
+  }
+
+  if (shouldSetNewPlayer) {
+    await updatePlayer(redis, player);
+  }
+
+  const basicStats: BasicStats = player.BASIC_STATS;
+  const derivativeStats: DerivativeStats = player.DERIVATIVE_STATS;
+
+  return printPlayer(player, basicStats, derivativeStats);
 }

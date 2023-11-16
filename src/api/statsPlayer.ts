@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 
 import { Player } from "../data/types.js";
-import { printPlayer } from "./print.js";
+import { calculateAndPrintPlayer } from "./print.js";
 
 async function routes(fastify: FastifyInstance, options: any) {
   fastify.get("/:playerFullName", async (request: any, reply: any) => {
@@ -19,7 +19,7 @@ async function routes(fastify: FastifyInstance, options: any) {
 
     if (playerJSON !== null) {
       const player: Player = JSON.parse(String(playerJSON));
-      const response = await printPlayer(redis, player);
+      const response = await calculateAndPrintPlayer(redis, player);
       return response;
     } else {
       reply.statusCode = 404;

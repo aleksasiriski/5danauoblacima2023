@@ -8,7 +8,8 @@
     "start": "node ./dist/index.js",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "Aleksa Siriški",
@@ -18,7 +19,8 @@
     "@types/papaparse": "^5.3.11",
     "typescript": "^5.2.2",
     "vite": "^4.5.0",
-    "vite-plugin-node": "^3.1.0"
+    "vite-plugin-node": "^3.1.0",
+    "vitest": "^0.34.6"
   },
   "dependencies": {
     "@fastify/redis": "^6.1.1",
