@@ -23,7 +23,7 @@ export default defineConfig({
 
       // Optional, default: false
       // if you want to init your app on boot, set this to true
-      initAppOnBoot: false,
+      initAppOnBoot: true,
 
       // Optional, default: 'esbuild'
       // The TypeScript compiler you want to use
