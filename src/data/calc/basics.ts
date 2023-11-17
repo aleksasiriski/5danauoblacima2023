@@ -1,4 +1,24 @@
-import { ParsedPlayer, BasicStats } from "../types.js";
+import { ParsedPlayer, BasicStats, Player } from "../types.js";
+
+export function sumBasics(newPlayer: Player, oldPlayer: Player) {
+  const { FTM, FTA, TwoPM, TwoPA, ThreePM, ThreePA, REB, BLK, AST, STL, TOV } =
+    oldPlayer.BASIC_STATS_SUM;
+
+  newPlayer.GAMES_PLAYED += oldPlayer.GAMES_PLAYED;
+  newPlayer.BASIC_STATS_SUM.FTM += FTM;
+  newPlayer.BASIC_STATS_SUM.FTA += FTA;
+  newPlayer.BASIC_STATS_SUM.TwoPM += TwoPM;
+  newPlayer.BASIC_STATS_SUM.TwoPA += TwoPA;
+  newPlayer.BASIC_STATS_SUM.ThreePM += ThreePM;
+  newPlayer.BASIC_STATS_SUM.ThreePA += ThreePA;
+  newPlayer.BASIC_STATS_SUM.REB += REB;
+  newPlayer.BASIC_STATS_SUM.BLK += BLK;
+  newPlayer.BASIC_STATS_SUM.AST += AST;
+  newPlayer.BASIC_STATS_SUM.STL += STL;
+  newPlayer.BASIC_STATS_SUM.TOV += TOV;
+
+  return newPlayer;
+}
 
 export function copyBasics(p: ParsedPlayer) {
   const basicStats: BasicStats = {

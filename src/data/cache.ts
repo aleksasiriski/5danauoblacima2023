@@ -2,64 +2,53 @@ import { Redis } from "ioredis";
 
 import { loadAndParseCSV } from "./load.js";
 import { Player } from "./types.js";
+import { sumBasics } from "./calc/basics.js";
 
 /* this could be called directly from
    createNewPlayer to speed up loading into redis
    but have to watch out for race conditions
 */
-export async function setNewPlayer(redis: Redis, p: Player) {
-  await redis.watch(p.NAME);
-  await redis.get(p.NAME, (err, val) => {
+export async function setNewPlayer(redis: Redis, player: Player) {
+  await redis.watch(player.NAME);
+  await redis.get(player.NAME, (err, val) => {
     if (err) {
-      console.error(`getting player ${p.NAME} from redis failed: ${err}`);
-      return { message: err };
-    } else {
-      if (val !== null) {
-        const oldP: Player = JSON.parse(String(val));
-
-        const {
-          FTM,
-          FTA,
-          TwoPM,
-          TwoPA,
-          ThreePM,
-          ThreePA,
-          REB,
-          BLK,
-          AST,
-          STL,
-          TOV,
-        } = oldP.BASIC_STATS_SUM;
-
-        p.GAMES_PLAYED += oldP.GAMES_PLAYED;
-        p.BASIC_STATS_SUM.FTM += FTM;
-        p.BASIC_STATS_SUM.FTA += FTA;
-        p.BASIC_STATS_SUM.TwoPM += TwoPM;
-        p.BASIC_STATS_SUM.TwoPA += TwoPA;
-        p.BASIC_STATS_SUM.ThreePM += ThreePM;
-        p.BASIC_STATS_SUM.ThreePA += ThreePA;
-        p.BASIC_STATS_SUM.REB += REB;
-        p.BASIC_STATS_SUM.BLK += BLK;
-        p.BASIC_STATS_SUM.AST += AST;
-        p.BASIC_STATS_SUM.STL += STL;
-        p.BASIC_STATS_SUM.TOV += TOV;
-      }
+      console.error(`getting player ${player.NAME} from redis failed`, err);
+    } else if (val) {
+      const oldPlayer: Player = JSON.parse(val);
+      player = sumBasics(player, oldPlayer);
     }
   });
   await redis
     .multi()
-    .set(p.NAME, JSON.stringify(p), (err) => {
+    .set(player.NAME, JSON.stringify(player), (err) => {
       if (err) {
-        console.error(`setting player ${p.NAME} to redis failed: ${err}`);
+        console.error(`setting player ${player.NAME} to redis failed`, err);
       }
     })
     .exec();
 }
 
-export async function updatePlayer(redis: Redis, p: Player) {
-  await redis.set(p.NAME, JSON.stringify(p), (err) => {
+export async function getPlayer(redis: Redis, playerName: string) {
+  const playerJSON = await redis.get(playerName, (err, val) => {
     if (err) {
-      console.error(`setting player ${p.NAME} to redis failed: ${err}`);
+      console.error(`getting player ${playerName} from redis failed`, err);
+    } else {
+      return val;
+    }
+  });
+
+  if (playerJSON) {
+    const player: Player = JSON.parse(playerJSON);
+    return player;
+  } else {
+    return null;
+  }
+}
+
+export async function updatePlayer(redis: Redis, player: Player) {
+  await redis.set(player.NAME, JSON.stringify(player), (err) => {
+    if (err) {
+      console.error(`setting player ${player.NAME} to redis failed`, err);
     }
   });
 }
@@ -67,9 +56,11 @@ export async function updatePlayer(redis: Redis, p: Player) {
 export async function loadDataIntoRedis(redisUrl: string) {
   const playersArray = await loadAndParseCSV();
   const redis = new Redis(redisUrl);
+
+  //! this should be omitted in production
   await redis.flushdb();
 
-  // commented because of race conditions
+  /* commented because of race conditions */
   // const setProm: Promise<void>[] = [];
   for (const p of playersArray) {
     await setNewPlayer(redis, p);
@@ -77,5 +68,7 @@ export async function loadDataIntoRedis(redisUrl: string) {
   }
 
   // await Promise.all(setProm);
+
+  // close connection after loading data
   await redis.quit();
 }

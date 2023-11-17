@@ -56,7 +56,7 @@ export function printPlayer(
 export async function calculateAndPrintPlayer(redis: Redis, player: Player) {
   let shouldSetNewPlayer = false;
 
-  if (player.BASIC_STATS === undefined) {
+  if (!player.BASIC_STATS) {
     player.BASIC_STATS = calculateBasics(
       player.GAMES_PLAYED,
       player.BASIC_STATS_SUM
@@ -64,13 +64,14 @@ export async function calculateAndPrintPlayer(redis: Redis, player: Player) {
     shouldSetNewPlayer = true;
   }
 
-  if (player.DERIVATIVE_STATS === undefined) {
+  if (!player.DERIVATIVE_STATS) {
     player.DERIVATIVE_STATS = await calculateDerivatives(player.BASIC_STATS);
     shouldSetNewPlayer = true;
   }
 
   if (shouldSetNewPlayer) {
-    await updatePlayer(redis, player);
+    // running in background to return the response faster
+    updatePlayer(redis, player);
   }
 
   const basicStats: BasicStats = player.BASIC_STATS;
