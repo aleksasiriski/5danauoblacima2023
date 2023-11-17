@@ -4,22 +4,22 @@ import { BasicStats, DerivativeStats } from "../types.js";
 
 test("calculates derivative stats from basic stats", async () => {
   const basicStats: BasicStats = {
-    FTM: 4.0,
+    FTM: 4,
     FTA: 5.5,
     TwoPM: 4.5,
-    TwoPA: 6.0,
+    TwoPA: 6,
     ThreePM: 4.5,
-    ThreePA: 6.0,
+    ThreePA: 6,
     REB: 5.5,
     BLK: 1.5,
-    AST: 1.0,
-    STL: 0.0,
+    AST: 1,
+    STL: 0,
     TOV: 1.5,
   };
   const expectedDerivativeStats: DerivativeStats = {
     FTPerc: 72.72727272727273,
-    TwoPPerc: 75.0,
-    ThreePPerc: 75.0,
+    TwoPPerc: 75,
+    ThreePPerc: 75,
     PTS: 26.5,
     VAL: 28.5,
     eFGPerc: 93.75,
